@@ -1,0 +1,164 @@
+# 多语言词典转换工具
+
+这是一个将英文-其他语言词典转换为中文-其他语言词典的工具集。项目使用 Google 翻译 API 将英文词典条目翻译成中文，生成多语言词典文件。
+
+## 功能特性
+
+- 📥 **自动下载词典**: 从 Facebook AI Research 的 MUSE 项目下载多语言词典
+- 🔄 **批量翻译**: 使用 Google 翻译 API 批量将英文词典翻译成中文
+- ✅ **质量检查**: 自动检测翻译结果中的非中文字符并进行修正
+- 📊 **统计分析**: 统计词典文件的行数和中文比例
+- 🔧 **文件处理**: 支持文件合并、重命名、差异比较等操作
+
+## 项目结构
+
+```
+tranlate/
+├── config.py              # 配置文件
+├── utils.py               # 工具函数
+├── download_dataset.py    # 下载词典文件
+├── translate_pair.py      # 翻译英文-其他语言词典
+├── pre_en.py              # 预处理和翻译修正
+├── post_en.py             # 后处理脚本
+├── new_post.py            # 异步后处理脚本
+├── mer.py                 # 文件合并工具
+├── diff.py                # 文件差异比较
+├── rename.py              # 批量重命名
+├── count_line.py          # 统计工具
+├── translate_ner.py       # NER数据翻译
+├── seq.py                 # 提取非中文行
+├── seq_batch.py           # 批量分割文件
+├── urls.txt               # 词典下载URL列表
+├── requirements.txt       # Python依赖
+├── .gitignore            # Git忽略文件
+└── README.md             # 项目说明
+
+# 数据目录（运行时自动创建）
+├── dataset/              # 原始词典文件
+├── output/               # 翻译后的文件
+└── filiter/              # 过滤后的最终文件
+```
+
+## 安装
+
+### 环境要求
+
+- Python 3.7+
+- pip
+
+### 安装依赖
+
+```bash
+pip install -r requirements.txt
+```
+
+## 使用方法
+
+### 1. 下载词典文件
+
+首先下载多语言词典文件：
+
+```bash
+python download_dataset.py
+```
+
+这将从 `urls.txt` 中读取 URL 列表，下载所有词典文件到 `dataset/` 目录。
+
+### 2. 翻译词典
+
+将英文-其他语言词典翻译成中文-其他语言词典：
+
+```bash
+python translate_pair.py
+```
+
+该脚本会：
+- 读取 `dataset/` 目录中所有以 `en-` 开头的文件
+- 将每行的英文单词翻译成中文
+- 保存翻译结果到 `output/` 目录
+
+### 3. 质量检查和修正
+
+检查翻译结果并修正非中文字符：
+
+```bash
+python pre_en.py
+```
+
+该脚本会：
+- 检查 `output/` 目录中的翻译文件
+- 识别第二列中非中文字符的行
+- 重新翻译这些行
+- 保存结果到 `filiter/` 目录
+
+### 4. 文件重命名
+
+将翻译后的文件重命名为标准格式（如 `zh-en.txt`）：
+
+```bash
+python rename.py
+```
+
+### 5. 统计信息
+
+统计词典文件的行数和中文比例：
+
+```bash
+python count_line.py
+```
+
+## 配置说明
+
+主要配置在 `config.py` 文件中：
+
+- `DATASET_DIR`: 原始词典文件目录
+- `OUTPUT_DIR`: 翻译输出目录
+- `FILTER_DIR`: 过滤后的文件目录
+- `LANGUAGE_PAIRS`: 支持的语言对列表
+- `TRANSLATION_CONFIG`: 翻译配置（批次大小、重试次数等）
+
+## 支持的语言
+
+项目支持以下语言对：
+
+- 欧洲语言: de, fr, es, it, pt, ru, pl, nl, cs, sv, da, fi, no, ro, hu, sk, sl, hr, bg, el, et, lv, lt, mk, sq, bs
+- 亚洲语言: zh, ja, ko, hi, th, vi, ta, id, ms, tl
+- 中东语言: ar, he, fa, tr
+- 其他: af, bn, ca, uk
+
+## 注意事项
+
+1. **翻译API限制**: Google 翻译 API 有请求频率限制，脚本已内置重试机制和延迟处理
+2. **网络连接**: 需要稳定的网络连接来访问 Google 翻译服务
+3. **文件大小**: 大型词典文件可能需要较长时间处理
+4. **翻译质量**: 自动翻译可能存在错误，建议人工审核重要条目
+
+## 工具脚本说明
+
+### `mer.py`
+合并文件，将提取的第二列重新插入到原始文件的对应位置。
+
+### `diff.py`
+比较两个文本文件的差异，输出差异报告。
+
+### `seq.py`
+提取第二列不完全由中文字符组成的行，保存为 Word 文档。
+
+### `seq_batch.py`
+将大文件分割成多个小文件，便于处理。
+
+### `translate_ner.py`
+翻译命名实体识别（NER）数据集的 JSONL 文件。
+
+## 许可证
+
+本项目仅供学习和研究使用。
+
+## 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 更新日志
+
+- 2024: 初始版本，支持多语言词典转换
+
