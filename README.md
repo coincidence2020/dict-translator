@@ -8,7 +8,7 @@
 - 🔄 **批量翻译**: 使用 Google 翻译 API 批量将英文词典翻译成中文
 - ✅ **质量检查**: 自动检测翻译结果中的非中文字符并进行修正
 - 📊 **统计分析**: 统计词典文件的行数和中文比例
-- 🔧 **文件处理**: 支持文件合并、重命名、差异比较等操作
+- 🔧 **文件处理**: 支持文件重命名、统计分析等操作
 
 ## 项目结构
 
@@ -19,17 +19,13 @@ tranlate/
 ├── download_dataset.py    # 下载词典文件
 ├── translate_pair.py      # 翻译英文-其他语言词典
 ├── pre_en.py              # 预处理和翻译修正
-├── post_en.py             # 后处理脚本
-├── new_post.py            # 异步后处理脚本
-├── mer.py                 # 文件合并工具
-├── diff.py                # 文件差异比较
+├── new_post.py            # 异步后处理脚本（可选）
 ├── rename.py              # 批量重命名
 ├── count_line.py          # 统计工具
-├── translate_ner.py       # NER数据翻译
-├── seq.py                 # 提取非中文行
-├── seq_batch.py           # 批量分割文件
 ├── urls.txt               # 词典下载URL列表
 ├── requirements.txt       # Python依赖
+├── LICENSE                # MIT许可证
+├── GITHUB_SETUP.md        # GitHub上传指南
 ├── .gitignore            # Git忽略文件
 └── README.md             # 项目说明
 
@@ -135,24 +131,12 @@ python count_line.py
 
 ## 工具脚本说明
 
-### `mer.py`
-合并文件，将提取的第二列重新插入到原始文件的对应位置。
-
-### `diff.py`
-比较两个文本文件的差异，输出差异报告。
-
-### `seq.py`
-提取第二列不完全由中文字符组成的行，保存为 Word 文档。
-
-### `seq_batch.py`
-将大文件分割成多个小文件，便于处理。
-
-### `translate_ner.py`
-翻译命名实体识别（NER）数据集的 JSONL 文件。
+### `new_post.py`（可选）
+异步后处理脚本，用于处理翻译后的文件。如果 `pre_en.py` 无法满足需求，可以使用此脚本进行异步处理。
 
 ## 许可证
 
-本项目仅供学习和研究使用。
+本项目采用 MIT 许可证，详见 [LICENSE](LICENSE) 文件。
 
 ## 贡献
 
