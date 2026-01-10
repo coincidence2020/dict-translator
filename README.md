@@ -10,26 +10,7 @@
 - 📊 **统计分析**: 统计词典文件的行数和中文比例
 - 🔧 **文件处理**: 支持文件重命名、统计分析等操作
 
-## 项目结构
-
-```
-tranlate/
-├── config.py              # 配置文件
-├── utils.py               # 工具函数
-├── download_dataset.py    # 下载词典文件
-├── translate_pair.py      # 翻译英文-其他语言词典
-├── pre_en.py              # 预处理和翻译修正
-├── new_post.py            # 异步后处理脚本（可选）
-├── rename.py              # 批量重命名
-├── count_line.py          # 统计工具
-├── urls.txt               # 词典下载URL列表
-├── requirements.txt       # Python依赖
-├── LICENSE                # MIT许可证
-├── GITHUB_SETUP.md        # GitHub上传指南
-├── .gitignore            # Git忽略文件
-└── README.md             # 项目说明
-
-# 数据目录（运行时自动创建）
+# 数据目录
 ├── dataset/              # 原始词典文件
 ├── output/               # 翻译后的文件
 └── filiter/              # 过滤后的最终文件
