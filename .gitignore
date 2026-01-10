@@ -33,10 +33,9 @@ env/
 *~
 
 # Project specific
-dataset/
-output/
-filiter/
-*.txt
+# dataset/  # 已启用上传
+# output/   # 已启用上传
+# filiter/  # 已启用上传
 *.docx
 *.rar
 merged_translated_file.txt
